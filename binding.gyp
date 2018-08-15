@@ -3,19 +3,23 @@
     # FIXME: check for architecture instead of OS, should only build on linux/arm/BCM2702
     ['OS=="linux"', {
       'targets': [
+
         {
           'target_name': 'rpi_ws281x',
           'sources': ['./src/rpi-ws281x.cc'],
-          'dependencies': ['libws2811']
+          'dependencies': ['rpi_libws2811'],
+          'include_dirs': ['<!(node -e "require(\'nan\')")']
         },
 
         {
-          'target_name': 'libws2811',
+          'target_name': 'rpi_libws2811',
           'type': 'static_library',
           'sources': [
             './src/rpi_ws281x/ws2811.c',
             './src/rpi_ws281x/pwm.c',
-            './src/rpi_ws281x/dma.c'
+            './src/rpi_ws281x/dma.c',
+            './src/rpi_ws281x/mailbox.c',
+            './src/rpi_ws281x/board_info.c'
           ],
           'cflags': ['-O2', '-Wall']
         },
@@ -25,9 +29,11 @@
           'type': 'none',
           'dependencies': ['rpi_ws281x'],
           'copies': [{
-                       'destination': './lib/binding/',
-                       'files': ['<(PRODUCT_DIR)/rpi_ws281x.node']
-                     }]
+            'destination': './lib/binding/',
+            'files': [
+              '<(PRODUCT_DIR)/rpi_ws281x.node'
+            ]
+          }]
         }
       ]
     }, { # OS != linux
