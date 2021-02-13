@@ -73,6 +73,22 @@ exports = {
 };
 ```
 
+### Johnny-Five Compatability
+
+To use this with Johnny-Five and Raspi-io you will need to tell Raspi-io to exclude the data pins that the LEDs are using. Otherwise the pins will not be available and you won't be able to control the LEDs. 
+
+For instance, if your LEDs is connected to GPIO18 of the Pi:
+
+```js
+const ws281x = require('rpi-ws281x-native');
+const five = require('johnny-five');
+const Raspi = require('raspi-io');
+
+const board = new five.Board({
+  io: new Raspi({ excludePins: 'GPIO18'}) // Exclude GPIO18 from raspi-io
+});
+```
+
 ### Index-Mapping
 
 As the wiring of the LEDs not neccessarily corresponds to the pixel-ordering in
@@ -98,7 +114,7 @@ the following Events:
 ## testing basic functionality
 
 connect the WS2812-strip to the raspberry-pi as described
-[here](https://learn.adafruit.com/neopixels-on-raspberry-pi/wiring) and run
+[here](https://learn.adafruit.com/neopixels-on-raspberry-pi/raspberry-pi-wiring) and run
 the command `sudo node examples/rainbow.js <numLeds>`.
 You should now see some rainbow-colors animation on the LED-strip.
 

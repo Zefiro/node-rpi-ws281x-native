@@ -1,6 +1,6 @@
 {
   "name": "rpi-ws281x-native",
-  "version": "0.8.1",
+  "version": "0.10.1",
   "description": "(raspberry-pi *only*) native bindings to control a strip of WS281x-LEDs with node.js",
   "keywords": [
     "raspberry",
@@ -22,7 +22,7 @@
   "bugs": "https://github.com/beyondscreen/node-rpi-ws281x-native/issues",
   "license": "MIT",
   "dependencies": {
-    "nan": "^2.0.9"
+    "node-addon-api": "^3.0.0"
   },
   "devDependencies": {}
 }
